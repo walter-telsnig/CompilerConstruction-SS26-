@@ -1,0 +1,10 @@
+program class final if else while break return read print new void
+identifier _ident123 MY_VAR
+123 0 456
+'a' '\n' '\t' '\r'
++ - * / % ++ -- == != < <= > >= && || = ; , . ( ) [ ] { }
+// This is a comment that should be skipped
+  
+	
+// another comment
+if (a == b) { print(c); }

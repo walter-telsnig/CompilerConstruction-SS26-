@@ -1,0 +1,11 @@
+!
+&
+|
+@
+#
+$
+'ab'
+'
+// Unfinished char const above, let's add some more
+"string" // strings are not supported in MJ
+3.14 // floats are not supported
