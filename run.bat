@@ -1,0 +1,1 @@
+java MJ.Run %1 %2

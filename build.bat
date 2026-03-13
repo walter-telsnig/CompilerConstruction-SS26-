@@ -1,0 +1,13 @@
+javac MJ\Token.java
+javac MJ\Scanner.java
+javac MJ\SymTab\Struct.java
+javac MJ\SymTab\Obj.java
+javac MJ\SymTab\Scope.java
+javac MJ\SymTab\Tab.java
+javac MJ\CodeGen\Operand.java
+javac MJ\CodeGen\Label.java
+javac MJ\CodeGen\Code.java
+javac MJ\Parser.java
+javac MJ\Compiler.java
+javac MJ\Run.java
+javac MJ\Decode.java
