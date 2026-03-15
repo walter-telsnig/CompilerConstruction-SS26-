@@ -8,3 +8,9 @@ identifier _ident123 MY_VAR
 	
 // another comment
 if (a == b) { print(c); }
+
+/* This is a block comment 
+   spanning multiple 
+   lines */
+identAfterBlockComment
+x ** y
