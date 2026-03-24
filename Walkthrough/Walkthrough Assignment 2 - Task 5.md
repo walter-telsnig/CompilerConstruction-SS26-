@@ -1,15 +1,15 @@
 # Walkthrough Assignment 2 - Task 5
 
-In this task, we extended the implementation of `MJ.ScannerTest` from Task 4 to automatically verify the correct behavior of our scanner against "ground truth" files. By comparing the output token stream against expected token codes, we can confidently confirm if our scanner processes tokens as intended without manual inspection.
+In this task, I extended the implementation of `MJ.ScannerTest` from Task 4 to automatically verify the correct behavior of the scanner against "ground truth" files. By comparing the output token stream against expected token codes, I could confidently confirm if the scanner processed tokens as intended without manual inspection.
 
 ## What was added in Task 5
 
-1. **Javadocs and Comments**: Added comments and Javadoc to `MJ.ScannerTest.java` marking `Assignment 2 - Task 5`.
+1. **Javadocs and Comments**: I added comments and Javadoc to `MJ.ScannerTest.java` marking `Assignment 2 - Task 5`.
 2. **Ground Truth Files Generation**: 
-   - We generated `tests/valid.mj.txt` and `tests/invalid.mj.txt`. 
+   - I generated `tests/valid.mj.txt` and `tests/invalid.mj.txt`. 
    - Each file contains a simple vertical list of the expected (correct) integer token codes corresponding to the test files created in Task 4.
 3. **Optional Command-Line Parameter**: 
-   - We modified `MJ.ScannerTest.java` to accept an optional second argument specifically for the ground truth file: `java MJ.ScannerTest <sourceFileName> [groundTruthFile]`.
+   - I modified `MJ.ScannerTest.java` to accept an optional second argument specifically for the ground truth file: `java MJ.ScannerTest <sourceFileName> [groundTruthFile]`.
 4. **Verification Logic**: 
    - The test program scans the target file with `MJ.Scanner` and iterates over each `Token`.
    - If a ground-truth file route is supplied, it reads the next integer from the text file using `java.util.Scanner` and cross-matches it with the generated `Token.kind`.
