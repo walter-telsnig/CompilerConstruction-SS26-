@@ -18,7 +18,7 @@ In this task, I extended the implementation of `MJ.ScannerTest` from Task 4 to a
    - Upon a complete matching pass of all tokens, the program concludes with `All tests passed!`.
    - If no second parameter is provided, `MJ.ScannerTest` behaves exactly as it did in Task 4 (printing out all tokens visibly to the console).
 
-## How to execute tests
+## Usage
 
 Make sure to compile the Java file first:
 ```bash

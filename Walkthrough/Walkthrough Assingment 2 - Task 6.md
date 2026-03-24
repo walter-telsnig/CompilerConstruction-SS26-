@@ -19,7 +19,7 @@ In this task, I extended the MicroJava scanner implementation `MJ.Scanner` to ad
 - **`tests/valid.mj`**: I appended a multi-line block comment spanning multiple linebreaks, immediately followed by the identifier `identAfterBlockComment`.
 - **`tests/valid.mj.txt`**: I updated the ground truth integer matching file to reflect these additions properly. The block comment is correctly skipped and only the final `identAfterBlockComment` (Token integer `1`) is added to the log.
 
-## Verification / Running
+## Usage
 
 No new setup logic is needed. You can verify it accurately passes via the testing architecture built in Task 5:
 

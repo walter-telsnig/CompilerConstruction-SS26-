@@ -44,3 +44,16 @@ The scanner correctly returned the `none` token (code 0) for illegal characters 
 
 ## Final Status
 The test driver `MJ.ScannerTest` is fully implemented and verified. All required test cases have been created and successfully executed. The code and test files have been pushed to the GitHub repository.
+
+## Usage
+
+To compile the `Scanner` and `ScannerTest` classes:
+```bash
+javac MJ/*.java
+```
+
+To execute the test driver and print the token codes to the console:
+```bash
+java MJ.ScannerTest tests/valid.mj
+java MJ.ScannerTest tests/invalid.mj
+```

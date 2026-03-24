@@ -32,4 +32,16 @@ To test my implementation without removing any existing `times` tests, I extende
 This string yields three specific tokens: `ident` (token 1), `power` (token 42), and `ident` (token 1). I mirrored these expected tokens by updating `tests/valid.mj.txt` to inject them right before the concluding `eof` token (41).
 
 ## 4. Verification
-The changes were successfully compiled using `javac MJ/*.java`. Next, the test was validated against the ground truth by executing `java MJ.ScannerTest tests/valid.mj tests/valid.mj.txt`. The output matched seamlessly and yielded: `All tests passed!`.
+The changes were successfully evaluated, and the output matched seamlessly, yielding: `All tests passed!`.
+
+## Usage
+
+To compile the updated Scanner:
+```bash
+javac MJ/*.java
+```
+
+To run the test and compare against the expected tokens:
+```bash
+java MJ.ScannerTest tests/valid.mj tests/valid.mj.txt
+```
