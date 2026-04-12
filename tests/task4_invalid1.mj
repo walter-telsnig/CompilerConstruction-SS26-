@@ -1,0 +1,6 @@
+// Invalid program 1: Error in ConstDecl (missing = sign)
+program InvalidProg1
+
+final int max 100; // missing '=' token
+
+{ }

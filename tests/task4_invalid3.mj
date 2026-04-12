@@ -1,0 +1,11 @@
+// Invalid program 3: Error in ClassDecl (malformed body, missing closing brace)
+program InvalidProg3
+
+class Point {
+    int x;
+    int y;
+// missing '}'
+
+int anotherVar;
+
+{ }

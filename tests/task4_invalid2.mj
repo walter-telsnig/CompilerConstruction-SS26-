@@ -1,0 +1,7 @@
+// Invalid program 2: Error in VarDecl (missing semicolon)
+program InvalidProg2
+
+int x, y // missing ';' token
+char ch;
+
+{ }

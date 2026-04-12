@@ -1,0 +1,7 @@
+// A valid MJ program with constants and variables
+program ValidProg1
+final int MAX = 100;
+final char nl = '\n';
+int[] arr1, arr2;
+char ch;
+{ }

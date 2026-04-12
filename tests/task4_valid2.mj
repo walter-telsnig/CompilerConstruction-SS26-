@@ -1,0 +1,18 @@
+// A valid MJ program with classes and mixed declarations
+program ValidProg2
+
+class Point {
+    int x;
+    int y;
+}
+
+final int zero = 0;
+
+class Line {
+    Point p1;
+    Point[] p2;
+}
+
+int count;
+
+{ }
