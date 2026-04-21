@@ -1,0 +1,10 @@
+{
+  "array": [
+    "valid",
+    unquoted,
+    "valid2",
+    {
+      "broken": 
+    }
+  ]
+}

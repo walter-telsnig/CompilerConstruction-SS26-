@@ -1,0 +1,14 @@
+{
+  "project": "compiler",
+  "version": "1.0",
+  "features": [
+    "parsing",
+    "scanning",
+    null
+  ],
+  "nested": {
+    "isNested": "yes",
+    "emptyArray": []
+  },
+  "emptyObject": {}
+}
