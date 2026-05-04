@@ -378,6 +378,9 @@ public class Parser {
 			Code.put(Code.trap);
 			Code.put(1);
 		}
+		if (Compiler.symdump && methName.equals("main")) {
+			Tab.printSymTabPretty();
+		}
 		Tab.closeScope();
 	}
 

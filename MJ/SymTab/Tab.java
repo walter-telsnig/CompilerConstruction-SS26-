@@ -135,6 +135,41 @@ public class Tab {
 			if (obj.kind == Obj.Meth || obj.kind == Obj.Prog) dumpScope(obj.locals);
 	}
 
+	//-------------- printing pretty symbol table for Task 4 ------------
+
+	public static void printSymTabPretty() {
+		Scope mainScope = curScope;
+		Scope globalScope = curScope != null ? curScope.outer : null;
+		
+		if (mainScope != null) printScopePretty(mainScope.locals);
+		if (globalScope != null) printScopePretty(globalScope.locals);
+	}
+
+	private static void printScopePretty(Obj head) {
+		for (Obj obj = head; obj != null; obj = obj.next) {
+			if (obj.kind == Obj.Var) {
+				System.out.println("Var: " + obj.name + " Type: " + getTypeName(obj.type) + " Level: " + obj.level + "  Address: " + obj.adr);
+				if (obj.type.kind == Struct.Class) {
+					for (Obj fld = obj.type.fields; fld != null; fld = fld.next) {
+						System.out.println("- Field:" + fld.name + " Type: " + getTypeName(fld.type) + " Level: " + fld.level + "  Address: " + fld.adr);
+					}
+				}
+			} else if (obj.kind == Obj.Con) {
+				System.out.println("Con: " + obj.name + " Type: " + getTypeName(obj.type) + " Level: " + obj.level + "  Value: " + obj.val);
+			}
+		}
+	}
+
+	private static String getTypeName(Struct type) {
+		switch (type.kind) {
+			case Struct.Int: return "Int  ";
+			case Struct.Char: return "Char ";
+			case Struct.Arr: return "Arr  ";
+			case Struct.Class: return "Class";
+			default: return "None ";
+		}
+	}
+
 	//-------------- initialization of the symbol table ------------
 
 	// Builds the universe

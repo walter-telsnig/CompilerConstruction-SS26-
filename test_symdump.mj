@@ -1,0 +1,14 @@
+program P 
+final char a = 'a'; 
+int b; 
+int[] c; 
+class A { char[] f; } 
+class B { int g; char h; } 
+{ 
+    void main() 
+    A v; B x; 
+    {   } 
+    void p() 
+    A q; 
+    {   } 
+} 

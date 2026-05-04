@@ -20,10 +20,23 @@ public class Compiler {
 		if (i < 0) return s + ".obj"; else return s.substring(0, i) + ".obj";
 	}
 
+	public static boolean symdump = false;
+
 	// Main method of the MicroJava compiler
 	public static void main(String args[]) {
 		if (args.length > 0) {
-			String sourceFileName = args[0];
+			String sourceFileName = null;
+			for (String arg : args) {
+				if (arg.equals("--symdump")) {
+					symdump = true;
+				} else {
+					sourceFileName = arg;
+				}
+			}
+			if (sourceFileName == null) {
+				System.out.println("-- synopsis: java MJ.Compiler [--symdump] <sourceFileName>");
+				return;
+			}
 			String outputFileName = changeExtension(sourceFileName);
 			try {
 				Scanner.init(new InputStreamReader(new FileInputStream(sourceFileName)));
