@@ -23,13 +23,14 @@ public class Operand {
 	public Struct type;	  // operand type
 	public Obj    obj;    // Meth: method object
 	public int    val;    // Con: constant value
+	public float  fVal;   // Con: float constant value (Assignment 7 - Task 4)
 	public int    adr;    // Local, Static, Fld, Meth: address
 	public int    op;     // Cond: most recent compare operator
 	public Label  tLabel; // Cond: label (fixup list) for true-jumps
 	public Label  fLabel; // Cond: label (fixup list) for false-jumps
 
 	public Operand(Obj obj) {
-		type = obj.type; val = obj.val; adr = obj.adr; kind = Stack; // default
+		type = obj.type; val = obj.val; fVal = obj.fVal; adr = obj.adr; kind = Stack; // default (Assignment 7 - Task 4)
 		switch (obj.kind) {
 			case Obj.Con:
 				kind = Con; break;
@@ -47,6 +48,10 @@ public class Operand {
 
 	public Operand(int val) {
 		kind = Con; this.val = val; type = Tab.intType;
+	}
+
+	public Operand(float fVal) { // Assignment 7 - Task 4
+		kind = Con; this.fVal = fVal; type = Tab.floatType;
 	}
 
 	public Operand(int kind, int val, Struct type) {

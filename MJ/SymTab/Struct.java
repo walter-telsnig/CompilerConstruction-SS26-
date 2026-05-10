@@ -11,8 +11,9 @@ public class Struct {
 		Int   = 1,
 		Char  = 2,
 		Arr   = 3,
-		Class = 4;
-	public int    kind;		  // None, Int, Char, Arr, Class
+		Class = 4,
+		Float = 5; // Assignment 7 - Task 4
+	public int    kind;		  // None, Int, Char, Arr, Class, Float
 	public Struct elemType; // for Arr: element type
 	public int    nFields;  // for Class: number of fields
 	public Obj    fields;   // for Class: fields

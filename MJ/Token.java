@@ -10,4 +10,5 @@ public class Token {
 	public int    col;	  // token column (starts at 1)
 	public String val;	  // token value
 	public int    numVal;	// numeric token value (for number and charConst)
+	public float  floatVal; // floating point token value (Assignment 7 - Task 4)
 }

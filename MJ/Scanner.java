@@ -52,7 +52,8 @@ public class Scanner {
 		void_     = 39,
 		while_    = 40,
 		eof       = 41, // end-of-file token
-		power     = 42; // ** (Assignment 2, Task 7)
+		power     = 42, // ** (Assignment 2, Task 7)
+		floatCon  = 43; // Assignment 7 - Task 4
 
 	private static final String key[] = { // sorted list of keywords
 		"break", "class", "else", "final", "if", "new", "print",
@@ -255,12 +256,29 @@ public class Scanner {
 		t.kind = checkIfKeyword(t.val);
 	}
 
-	// Scans a number; ch holds its first digit
+	// Scans a number or float; ch holds its first digit (Assignment 7 - Task 4)
 	private static void readNumber(Token t) {
 		int i = 0;
 		do {
 			lex[i++] = ch; nextCh();
 		} while ('0' <= ch && ch <= '9');
+		
+		if (ch == '.') { // Assignment 7 - Task 4
+			lex[i++] = ch; nextCh();
+			while ('0' <= ch && ch <= '9') {
+				lex[i++] = ch; nextCh();
+			}
+			t.kind = floatCon;
+			t.val = new String(lex, 0, i);
+			try {
+				t.floatVal = Float.parseFloat(t.val);
+			} catch (NumberFormatException e) {
+				t.floatVal = 0.0f;
+				error("float too large");
+			}
+			return;
+		}
+
 		t.kind = number;
 		t.val = new String(lex, 0, i);
 		try {

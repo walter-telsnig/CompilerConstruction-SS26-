@@ -17,6 +17,7 @@ public class Tab {
 	public static Struct charType;
 	public static Struct nullType;
 	public static Struct noType;
+	public static Struct floatType; // Assignment 7 - Task 4
 
 	public static Obj chrObj;		  // predeclared objects
 	public static Obj ordObj;
@@ -96,6 +97,7 @@ public class Tab {
 			case Struct.Char: kind = "Char "; break;
 			case Struct.Arr:  kind = "Arr  "; break;
 			case Struct.Class:kind = "Class"; break;
+			case Struct.Float:kind = "Float"; break; // Assignment 7 - Task 4
 			default: kind = "None";
 		}
 		System.out.print(kind + " ");
@@ -166,6 +168,7 @@ public class Tab {
 			case Struct.Char: return "Char ";
 			case Struct.Arr: return "Arr  ";
 			case Struct.Class: return "Class";
+			case Struct.Float: return "Float"; // Assignment 7 - Task 4
 			default: return "None ";
 		}
 	}
@@ -183,11 +186,13 @@ public class Tab {
 		charType = new Struct(Struct.Char);
 		nullType = new Struct(Struct.Class);
 		noType = new Struct(Struct.None);
+		floatType = new Struct(Struct.Float); // Assignment 7 - Task 4
 		noObj = new Obj(Obj.Var, "???", noType);
 
 		// create predeclared objects
 		insert(Obj.Type, "int", intType);
 		insert(Obj.Type, "char", charType);
+		insert(Obj.Type, "float", floatType); // Assignment 7 - Task 4
 		insert(Obj.Con, "null", nullType);
 
 		chrObj = insert(Obj.Meth, "chr", charType);

@@ -51,14 +51,16 @@ public class Parser {
 		return_   = 38,
 		void_     = 39,
 		while_    = 40,
-		eof       = 41; // end-of-file token
+		eof       = 41, // end-of-file token
+		power     = 42, // ** (Assignment 2, Task 7)
+		floatCon  = 43; // Assignment 7 - Task 4
 
 	private static final String[] name = { // token names for error messages
 		"none", "identifier", "number", "char constant", "+", "-", "*", "/", "%",
 		"++", "--", "==", "!=", "<", "<=", ">", ">=", "&&", "||",
 		"(", ")", "[", "]", "{", "}", "=", ";", ",", ".",
 		"break", "class", "else", "final", "if", "new", "print",
-		"program", "read", "return", "void", "while", "eof"
+		"program", "read", "return", "void", "while", "eof", "power", "float constant" // Assignment 7 - Task 4
 	};
 
 	private static Token t;				// most recently recognized token
@@ -214,6 +216,10 @@ public class Parser {
 			scan();
 			obj.val = t.numVal;
 			if (type != Tab.charType) error("value does not match constant type");
+		} else if (sym == floatCon) { // Assignment 7 - Task 4
+			scan();
+			obj.fVal = t.floatVal;
+			if (type != Tab.floatType) error("value does not match constant type");
 		} else error("constant expected");
 		check(semicolon);
 	}
@@ -255,10 +261,11 @@ public class Parser {
 		if (sym == minus) {
 			scan();
 			x = Term();
-			if (x.type != Tab.intType) error("integer operand required");
-			if (x.kind == Operand.Con)
+			if (x.type != Tab.intType && x.type != Tab.floatType) error("numeric operand required"); // Assignment 7 - Task 4
+			if (x.kind == Operand.Con) { // Assignment 7 - Task 4
 				x.val = - x.val;
-			else {
+				x.fVal = - x.fVal;
+			} else {
 				Code.load(x);
 				Code.put(Code.neg);
 			}
@@ -271,8 +278,8 @@ public class Parser {
 			Code.load(x);
 			Operand y = Term();
 			Code.load(y);
-			if (x.type != Tab.intType || y.type != Tab.intType)
-				error("operands must be of type int");
+			if (x.type != y.type || (x.type != Tab.intType && x.type != Tab.floatType)) // Assignment 7 - Task 4
+				error("operands must be of the same numeric type");
 			Code.put(op);
 		}
 		return x;
@@ -292,6 +299,9 @@ public class Parser {
 		} else if (sym == number) {
 			scan();
 			x = new Operand(t.numVal);
+		} else if (sym == floatCon) { // Assignment 7 - Task 4
+			scan();
+			x = new Operand(t.floatVal);
 		} else if (sym == charCon) {
 			scan();
 			x = new Operand(t.numVal);
@@ -521,7 +531,8 @@ public class Parser {
 			check(rpar);
 			if (x.type == Tab.intType) Code.put(Code.read);
 			else if (x.type == Tab.charType) Code.put(Code.bread);
-			else error("can only read int or char variables");
+			else if (x.type == Tab.floatType) { /* Code.put(Code.fread) */ } // Assignment 7 - Task 4
+			else error("can only read int, char or float variables"); // Assignment 7 - Task 4
 			// read value is already on the stack
 			Code.assignTo(x);
 			check(semicolon);
@@ -542,7 +553,8 @@ public class Parser {
 			Code.load(y);
 			if (x.type == Tab.intType) Code.put(Code.print);
 			else if (x.type == Tab.charType) Code.put(Code.bprint);
-			else error("can only print int or char variables");
+			else if (x.type == Tab.floatType) { /* Code.put(Code.fprint) */ } // Assignment 7 - Task 4
+			else error("can only print int, char or float variables"); // Assignment 7 - Task 4
 			check(rpar);
 			check(semicolon);
 
@@ -567,8 +579,8 @@ public class Parser {
 			Code.load(x);
 			Operand y = Factor();
 			Code.load(y);
-			if (x.type != Tab.intType || y.type != Tab.intType)
-				error("operands must be of type int");
+			if (x.type != y.type || (x.type != Tab.intType && x.type != Tab.floatType)) // Assignment 7 - Task 4
+				error("operands must be of the same numeric type");
 			Code.put(op);
 		}
 		return x;

@@ -18,6 +18,7 @@ public class Obj {
 	public Struct type;	 	// object type
 	public Obj    next;		// next local object in this scope
 	public int    val;    // for Con: value
+	public float  fVal;   // for Con: float value (Assignment 7 - Task 4)
 	public int    adr;    // for Var, Meth: address
 	public int    level;  // for Var: declaration level
 	public int    nPars;  // for Meth: number of parameters
