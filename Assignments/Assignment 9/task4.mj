@@ -1,0 +1,16 @@
+program Task4
+  class Dataset {
+    int dummy; // First field (Offset 0)
+    int[] val; // Second field (Offset 1)
+  }
+  Dataset obj; // Global variable at static address 0
+{
+  void main()
+    int n; // Local variable at offset 0
+  {
+    n = 13;
+    obj = new Dataset;
+    obj.val = new int[20];
+    obj.val[0] = n;
+  }
+}

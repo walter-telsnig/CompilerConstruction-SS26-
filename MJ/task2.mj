@@ -1,0 +1,11 @@
+program task2
+    int x;
+{
+    void main()
+    int i;
+    int[] a;
+    int res;
+    {
+        res = (11 * a[i]+x)/ % 31;
+    }
+}
