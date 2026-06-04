@@ -53,15 +53,19 @@ public class Scanner {
 		while_    = 40,
 		eof       = 41, // end-of-file token
 		power     = 42, // ** (Assignment 2, Task 7)
-		floatCon  = 43; // Assignment 7 - Task 4
+		floatCon  = 43, // Assignment 7 - Task 4
+		case_     = 44,
+		default_  = 45,
+		switch_   = 46,
+		colon     = 47;
 
 	private static final String key[] = { // sorted list of keywords
-		"break", "class", "else", "final", "if", "new", "print",
-		"program", "read", "return", "void", "while"
+		"break", "case", "class", "default", "else", "final", "if", "new", "print",
+		"program", "read", "return", "switch", "void", "while"
 	};
 	private static final int keyVal[] = { // token codes for keywords
-		break_, class_, else_, final_, if_, new_, print_,
-		program_, read_, return_, void_, while_
+		break_, case_, class_, default_, else_, final_, if_, new_, print_,
+		program_, read_, return_, switch_, void_, while_
 	};
 
 	private static char   ch;		// lookahead character
@@ -197,6 +201,9 @@ public class Scanner {
 				break;
 			case ';':
 				t.kind = semicolon; nextCh();
+				break;
+			case ':':
+				t.kind = colon; nextCh();
 				break;
 			case ',':
 				t.kind = comma; nextCh();

@@ -1,0 +1,18 @@
+program MethodCall
+{
+    int sum2(int min, int max)
+    int i, s;
+    {
+        s = 0;
+        i = min;
+        while (i <= max) {
+            s = s + i*i;
+            i++;
+        }
+        return s;
+    }
+    void main()
+    {
+        print(sum2(2,4));
+    }
+}

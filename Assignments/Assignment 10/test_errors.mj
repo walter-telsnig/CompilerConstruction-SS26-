@@ -1,0 +1,24 @@
+program TestErrors
+  char c;
+  int x;
+{
+  void main()
+  {
+    // 1. Non-int expression
+    switch (c) {
+      case 0: x = 1;
+    }
+    
+    // 2. Duplicate case values
+    switch (x) {
+      case 1: x = 2;
+      case 1: x = 3;
+    }
+    
+    // 3. Multiple default cases
+    switch (x) {
+      default: x = 4;
+      default: x = 5;
+    }
+  }
+}

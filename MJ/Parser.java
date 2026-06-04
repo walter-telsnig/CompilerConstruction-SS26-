@@ -53,14 +53,19 @@ public class Parser {
 		while_    = 40,
 		eof       = 41, // end-of-file token
 		power     = 42, // ** (Assignment 2, Task 7)
-		floatCon  = 43; // Assignment 7 - Task 4
+		floatCon  = 43, // Assignment 7 - Task 4
+		case_     = 44,
+		default_  = 45,
+		switch_   = 46,
+		colon     = 47;
 
 	private static final String[] name = { // token names for error messages
 		"none", "identifier", "number", "char constant", "+", "-", "*", "/", "%",
 		"++", "--", "==", "!=", "<", "<=", ">", ">=", "&&", "||",
 		"(", ")", "[", "]", "{", "}", "=", ";", ",", ".",
 		"break", "class", "else", "final", "if", "new", "print",
-		"program", "read", "return", "void", "while", "eof", "power", "float constant" // Assignment 7 - Task 4
+		"program", "read", "return", "void", "while", "eof", "power", "float constant", // Assignment 7 - Task 4
+		"case", "default", "switch", ":"
 	};
 
 	private static Token t;				// most recently recognized token
@@ -485,6 +490,10 @@ public class Parser {
 				x.fLabel.here();
 			}
 
+		// "switch" '(' Expr ')' '{' { "case" number ":" { Statement } } [ "default" ":" { Statement } ] '}'
+		} else if (sym == switch_) {
+			SwitchStatement();
+
 		// "while" '(' Condition ')' Statement
 		} else if (sym == while_) {
 			scan();
@@ -570,6 +579,104 @@ public class Parser {
 		}
 	}
 
+	private static class CaseInfo {
+		int value;
+		Label bodyLabel;
+		CaseInfo(int value, Label bodyLabel) {
+			this.value = value;
+			this.bodyLabel = bodyLabel;
+		}
+	}
+
+	// SwitchStatement = "switch" '(' Expr ')' '{' { "case" number ":" { Statement } } [ "default" ":" { Statement } ] '}'.
+	private static void SwitchStatement() {
+		scan(); // switch
+		check(lpar);
+		Operand x = Expr();
+		if (x.type != Tab.intType) {
+			error("switch expression must be of type int");
+		}
+		Code.load(x);
+		check(rpar);
+		check(lbrace);
+
+		Label endSwitch = new Label();
+		breakLabStack.push(breakLab);
+		breakLab = endSwitch;
+
+		Label checksStart = new Label();
+		Code.jump(checksStart);
+
+		List<CaseInfo> cases = new ArrayList<CaseInfo>();
+		Label defaultLabel = null;
+		boolean hasDefault = false;
+
+		while (sym == case_ || sym == default_) {
+			if (sym == case_) {
+				scan();
+				check(number);
+				int val = t.numVal;
+				for (CaseInfo ci : cases) {
+					if (ci.value == val) {
+						error("duplicate case value");
+					}
+				}
+				check(colon);
+				Label bodyLabel = new Label();
+				bodyLabel.here();
+				cases.add(new CaseInfo(val, bodyLabel));
+				while (sym != case_ && sym != default_ && sym != rbrace && sym != eof) {
+					Statement();
+				}
+			} else { // default_
+				scan();
+				check(colon);
+				if (hasDefault) {
+					error("only one default case allowed");
+				}
+				hasDefault = true;
+				defaultLabel = new Label();
+				defaultLabel.here();
+				while (sym != case_ && sym != default_ && sym != rbrace && sym != eof) {
+					Statement();
+				}
+			}
+		}
+		check(rbrace);
+
+		// Force jump to end of switch at the end of the last case/default body to prevent falling through into the check block
+		Code.jump(endSwitch);
+
+		// Emit checks block
+		checksStart.here();
+		for (CaseInfo ci : cases) {
+			Code.put(Code.dup);
+			Operand valOp = new Operand(ci.value);
+			Code.load(valOp);
+
+			Label nextCheck = new Label();
+			Code.put(Code.jne);
+			nextCheck.putAdr();
+
+			// Condition met: pop expr value from expression stack and jump to body
+			Code.put(Code.pop);
+			Code.jump(ci.bodyLabel);
+
+			nextCheck.here();
+		}
+
+		// Default match behavior
+		Code.put(Code.pop); // Clean up the remaining switch expression value
+		if (hasDefault) {
+			Code.jump(defaultLabel);
+		} else {
+			Code.jump(endSwitch);
+		}
+
+		endSwitch.here();
+		breakLab = breakLabStack.pop();
+	}
+
 	// Term = Factor {('*' | '/' | '%') Factor}
 	private static Operand Term() {
 		Operand x = Factor();
@@ -622,7 +729,7 @@ public class Parser {
 
 		s = new BitSet(64); firstStat = s;
 		s.set(ident); s.set(if_); s.set(while_); s.set(break_); s.set(read_);
-		s.set(return_); s.set(print_); s.set(lbrace); s.set(semicolon);
+		s.set(return_); s.set(print_); s.set(lbrace); s.set(semicolon); s.set(switch_);
 
 		s = (BitSet)firstStat.clone(); syncStat = s;
 		s.clear(ident); s.set(rbrace); s.set(eof);

@@ -1,0 +1,58 @@
+program TestSwitch
+  int x;
+  int y;
+  int n0;
+  int n1;
+  int n2;
+{
+  // Helper method to reset counters and print output
+  void runSwitch(int val)
+  {
+    x = val;
+    y = 0;
+    n0 = 0;
+    n1 = 0;
+    n2 = 0;
+
+    switch (x % 5) {
+      case 0: y = x / 5; n0++; break;
+      case 1: y = (x - 1) / 5; n1++; break;
+      case 2: n2++; // fall through
+      default: y = x;
+    }
+
+    print(x);
+    print(y);
+    print(n0);
+    print(n1);
+    print(n2);
+  }
+
+  void main()
+  {
+    // Test case 0: x = 10 -> x % 5 = 0
+    // Expected output: x=10, y=2, n0=1, n1=0, n2=0
+    runSwitch(10);
+
+    // Print separator (999)
+    print(999);
+
+    // Test case 1: x = 11 -> x % 5 = 1
+    // Expected output: x=11, y=2, n0=0, n1=1, n2=0
+    runSwitch(11);
+
+    // Print separator (999)
+    print(999);
+
+    // Test case 2: x = 12 -> x % 5 = 2 (falls through to default)
+    // Expected output: x=12, y=12, n0=0, n1=0, n2=1
+    runSwitch(12);
+
+    // Print separator (999)
+    print(999);
+
+    // Test default: x = 13 -> x % 5 = 3
+    // Expected output: x=13, y=13, n0=0, n1=0, n2=0
+    runSwitch(13);
+  }
+}

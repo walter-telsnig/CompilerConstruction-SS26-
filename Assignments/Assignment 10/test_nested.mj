@@ -1,0 +1,28 @@
+program TestNested
+  int x;
+  int y;
+  int z;
+{
+  void main()
+  {
+    x = 1;
+    y = 2;
+    z = 0;
+    
+    switch (x) {
+      case 1:
+        switch (y) {
+          case 2:
+            z = 100;
+            break;
+          default:
+            z = 200;
+        }
+        break;
+      default:
+        z = 300;
+    }
+    
+    print(z); // Expected: 100
+  }
+}
