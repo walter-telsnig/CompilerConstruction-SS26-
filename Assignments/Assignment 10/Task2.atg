@@ -1,0 +1,70 @@
+SwitchStatement
+(. 
+   Operand expr;
+   int val;
+   Label defaultLab = new Label();
+   Label endSwitch  = new Label();
+   ArrayList<Integer> caseValues = new ArrayList<>();
+   ArrayList<Label> caseLabels   = new ArrayList<>();
+   boolean hasDefault = false;
+
+   Label oldBreak = breakLab; 
+   breakLab = endSwitch; 
+.)
+= 
+  "switch" "(" Expr<out expr> 
+  (. 
+     if (expr.type != Tab.intType) {
+         error("switch expression must be of type int");
+     }
+     Code.load(expr); 
+  .) 
+  ")" "{"
+     {
+        "case" number 
+        (. 
+           val = token.val;
+           if (caseValues.contains(val)) {
+               error("duplicate case label");
+           }
+           Label caseBody = new Label();
+           caseValues.add(val);
+           caseLabels.add(caseBody);
+           
+           Code.put(Code.dup);
+           Code.load(new Operand(val));
+           Code.tJump(Code.eq, caseBody);
+        .)
+        ":" 
+     }
+     (. Code.jump(defaultLab); .)
+     {
+        "case" number 
+        (. 
+           val = token.val;
+           int idx = caseValues.indexOf(val);
+           if (idx >= 0) {
+               caseLabels.get(idx).here(); 
+           }
+        .)
+        ":" { Statement }
+        
+        |
+        
+        "default" ":" 
+        (. 
+           hasDefault = true; 
+           defaultLab.here(); 
+        .)
+        { Statement }
+     }
+  "}" 
+  (.
+     if (!hasDefault) {
+         defaultLab.here();
+     }
+     Code.put(Code.pop);
+     endSwitch.here();
+     breakLab = oldBreak;
+  .)
+.
