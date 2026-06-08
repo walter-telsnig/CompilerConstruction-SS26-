@@ -1,0 +1,28 @@
+0: enter 2 4
+3: const0
+4: store3
+5: load0
+6: store2
+7: load2
+8: load1
+9: jgt 15
+12: load3
+13: load2
+14: load2
+15: mul
+16: add
+17: store3
+18: inc 2 1
+21: jmp -14
+24: load3
+25: exit
+26: return
+27: trap 1
+29: enter 0 0
+32: const2
+33: const4
+34: call -34
+37: const0
+38: print
+39: exit
+40: return

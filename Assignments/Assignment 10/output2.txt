@@ -1,0 +1,52 @@
+  29: enter    | 
+  32: const2   | 2 
+  33: const4   | 2 4 
+  34: call     | 2 4 
+   0: enter    | 
+   3: const0   | 0 
+   4: store3   | 
+   5: load0    | 2 
+   6: store2   | 
+   7: load2    | 2 
+   8: load1    | 2 4 
+   9: jgt      |
+  12: load3    | 0
+  13: load2    | 0 2
+  14: load2    | 0 2 2
+  15: mul      | 0 4
+  16: add      | 4
+  17: store3   |
+  18: inc      |
+  21: jmp      |
+   7: load2    | 3
+   8: load1    | 3 4
+   9: jgt      |
+  12: load3    | 4
+  13: load2    | 4 3
+  14: load2    | 4 3 3
+  15: mul      | 4 9
+  16: add      | 13
+  17: store3   |
+  18: inc      |
+  21: jmp      |
+   7: load2    | 4
+   8: load1    | 4 4
+   9: jgt      |
+  12: load3    | 13
+  13: load2    | 13 4 
+  14: load2    | 13 4 4
+  15: mul      | 13 16
+  16: add      | 29
+  17: store3   |
+  18: inc      |
+  21: jmp      |
+   7: load2    | 5
+   8: load1    | 5 4
+   9: jgt      |
+  24: load3    | 29
+  25: exit     | 29
+  26: return   | 29
+  37: const0   | 29 0
+  38: print    | 29
+  39: exit     |
+  40: return   |
